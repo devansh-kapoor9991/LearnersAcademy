@@ -14,8 +14,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-
 import com.model.Student;
+
 import com.util.HibernateSessionUtil;
 
 //import sun.print.resources.serviceui_es;
@@ -23,11 +23,11 @@ import com.util.HibernateSessionUtil;
 /**
  * Servlet implementation class InitSession
  */
-@WebServlet("/update-student")
-public class UpdateStudent extends HttpServlet {
+@WebServlet("/delete-student")
+public class dleteStudent extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public UpdateStudent() {
+	public dleteStudent() {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -40,7 +40,7 @@ public class UpdateStudent extends HttpServlet {
 			
 				out.println("<h3 style='color:green'> Welcome to admin access page  </h3>");
 		
-				request.getRequestDispatcher("update-student.html").include(request, response);
+				request.getRequestDispatcher("delete-student.html").include(request, response);
 			} 
 			
 		else {
@@ -52,7 +52,9 @@ public class UpdateStudent extends HttpServlet {
 		
 		request.getRequestDispatcher("index.html").include(request, response);
 	
+
 	}
+	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -61,10 +63,7 @@ public class UpdateStudent extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		request.getRequestDispatcher("index.html").include(request, response);
 		
-		int studentId = Integer.parseInt(request.getParameter("id"));
-		String studentName = request.getParameter("name");
-		String studentAge = request.getParameter("age");
-		String studentRollno=request.getParameter("rollno");
+		String studentId = request.getParameter("id");
 		// build hibernate session factory
 		try {
 			// 1. load session factory
@@ -77,16 +76,17 @@ public class UpdateStudent extends HttpServlet {
 			 Transaction tx = session.beginTransaction();
 			 
 			 //4. create product object
-			 Student student = new Student(studentId,studentName,studentAge,studentRollno);
+			 Student student = new Student();
+			 student.setId(Integer.parseInt(studentId));
 			 
-			 //5. update product
-			 session.update(student);
+			 //5. delete product
+			 session.delete(student);
 			 
 			 //6. commit transaction.
 			 tx.commit();
 
 			if (session != null) {
-				out.print("<h3 style='color:green'> Student is updated sucessfully ! </h3>");
+				out.print("<h3 style='color:green'> Student Data is deleted sucessfully ! </h3>");
 			}
 
 			// close session
