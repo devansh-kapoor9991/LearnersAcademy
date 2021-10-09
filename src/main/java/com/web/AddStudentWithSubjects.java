@@ -92,7 +92,7 @@ public class AddStudentWithSubjects extends HttpServlet {
 			// 3. create transaction
 			Transaction tx = session.beginTransaction();
 
-			// 4. create order object
+			// 4. create student object
 			Student student = new Student (name,age,rollno);
 			
 			Set<Subject> subjects= new HashSet<>();
@@ -104,10 +104,10 @@ public class AddStudentWithSubjects extends HttpServlet {
 			subjects.add(subject2);
 			subjects.add(subject3);
 			
-			// add products list to order
+	
 			student.setSubjects(subjects);
 			
-			// 5. save product
+			// 5. save student
 			session.save(student);
 
 			// 6. commit transaction.

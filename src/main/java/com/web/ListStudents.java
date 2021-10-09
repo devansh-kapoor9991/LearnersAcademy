@@ -47,7 +47,7 @@ public class ListStudents extends HttpServlet {
 			out.print("<tr>");
 				out.print("<th> Student Id</th>");
 				out.print("<th> Student Name</th>");
-				out.print("<th> Student Price</th>");
+				out.print("<th> Student Age</th>");
 				out.print("<th> CreateAt </th>");
 				out.print("<th> Modified </th>");
 			out.print("</tr>");

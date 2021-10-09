@@ -33,7 +33,7 @@ public class ListTeachers extends HttpServlet {
 			SessionFactory factory = HibernateSessionUtil.buildSessionFactory();
 			// create a session object
 			Session session = factory.openSession();
-			// read students
+			// read teacher
 			List<Teacher> teacher = session.createQuery("from Teacher").list();
 			
 			//show data as table.

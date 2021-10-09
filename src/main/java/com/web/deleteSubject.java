@@ -2,10 +2,8 @@ package com.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
 
+import javax.persistence.PersistenceException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,22 +15,19 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import com.model.Class;
-import com.model.Student;
 import com.model.Subject;
-import com.model.Teacher;
 import com.util.HibernateSessionUtil;
 
-@WebServlet("/add-class-with-teacher")
-public class AddClassWithTeacher extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+@WebServlet("/delete-subject")
+public class deleteSubject extends HttpServlet {
+private static final long serialVersionUID = 1L;
 
-	public AddClassWithTeacher() {
+	public deleteSubject() {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.setContentType("text/html");
+
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession(false);
 		if(session != null) {
@@ -40,7 +35,7 @@ public class AddClassWithTeacher extends HttpServlet {
 			
 				out.println("<h3 style='color:green'> Welcome to admin access page  </h3>");
 		
-				request.getRequestDispatcher("add-class-with-teacher.html").include(request, response);
+				request.getRequestDispatcher("delete-subject.html").include(request, response);
 			} 
 			
 		else {
@@ -54,33 +49,16 @@ public class AddClassWithTeacher extends HttpServlet {
 	
 
 	}
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		request.getRequestDispatcher("index.html").include(request, response);
-
-		// get class params
-		String clas1 = request.getParameter("classpos");
-		String sch =request.getParameter("school");
 		
-
-		// get teacher details
-		String t1  = request.getParameter("teachername1");
-		String  c1=request.getParameter("teachercode1");
-		
-		
-		String t2 = request.getParameter("teachername2");
-		String c2 =request.getParameter("teachercode2");
-
-		
-		
-		
-		
+		String subjectId = request.getParameter("id");
 		// build hibernate session factory
 		try {
 			// 1. load session factory
@@ -88,39 +66,36 @@ public class AddClassWithTeacher extends HttpServlet {
 
 			// 2. create a session
 			Session session = factory.openSession();
-
+			
 			// 3. create transaction
-			Transaction tx = session.beginTransaction();
-
-			// 4. create class object
-			Class clas = new Class(clas1,sch);
-			
-			Set<Teacher> teacher1= new HashSet<>();
-			Teacher teach1 = new Teacher(t1,c1);
-			Teacher teach2 = new Teacher(t2,c2);
-			
-			teacher1.add(teach1);
-			teacher1.add(teach2);
-		
-			
-			clas.setTeacher1(teacher1);
-			
-			// 5. save product
-			session.save(clas);
-
-			// 6. commit transaction.
-			tx.commit();
+			 Transaction tx = session.beginTransaction();
+			 
+			 //4. create Subject object
+			Subject subject=new Subject();
+			 subject.setId(Integer.parseInt(subjectId));
+			 
+			 //5. delete product
+			 session.delete(subject);
+			 
+			 //6. commit transaction.
+			 tx.commit();
 
 			if (session != null) {
-				out.print("<h3 style='color:green'> Class with Teacher Details added sucessfully ! </h3>");
+				out.print("<h3 style='color:green'> Subject data is deleted sucessfully ! </h3>");
 			}
 
 			// close session
 			session.close();
-		} catch (Exception e) {
-			out.print("<h3 style='color:red'> Hibernate session is failed ! </h3>"+e);
+			
 		}
-
+		catch(PersistenceException e) {
+			out.println("<h3 style = 'color:red'> Cannot delete the following subject </h3>");
+			e.printStackTrace();
+		}
+		
+		catch (Exception e) {
+			out.print("<h3 style='color:red'> Hibernate session is failed ! </h3>");
+		}
 	}
 
 }

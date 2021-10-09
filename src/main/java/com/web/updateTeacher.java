@@ -2,9 +2,6 @@ package com.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,22 +14,26 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import com.model.Class;
+
 import com.model.Student;
-import com.model.Subject;
 import com.model.Teacher;
 import com.util.HibernateSessionUtil;
 
-@WebServlet("/add-class-with-teacher")
-public class AddClassWithTeacher extends HttpServlet {
+//import sun.print.resources.serviceui_es;
+
+/**
+ * Servlet implementation class InitSession
+ */
+@WebServlet("/update-teacher")
+public class updateTeacher extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public AddClassWithTeacher() {
+	public updateTeacher() {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.setContentType("text/html");
+
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession(false);
 		if(session != null) {
@@ -40,7 +41,7 @@ public class AddClassWithTeacher extends HttpServlet {
 			
 				out.println("<h3 style='color:green'> Welcome to admin access page  </h3>");
 		
-				request.getRequestDispatcher("add-class-with-teacher.html").include(request, response);
+				request.getRequestDispatcher("update-teacher.html").include(request, response);
 			} 
 			
 		else {
@@ -52,34 +53,18 @@ public class AddClassWithTeacher extends HttpServlet {
 		
 		request.getRequestDispatcher("index.html").include(request, response);
 	
-
 	}
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		request.getRequestDispatcher("index.html").include(request, response);
-
-		// get class params
-		String clas1 = request.getParameter("classpos");
-		String sch =request.getParameter("school");
 		
-
-		// get teacher details
-		String t1  = request.getParameter("teachername1");
-		String  c1=request.getParameter("teachercode1");
-		
-		
-		String t2 = request.getParameter("teachername2");
-		String c2 =request.getParameter("teachercode2");
-
-		
-		
-		
+		int teacherId = Integer.parseInt(request.getParameter("id"));
+		String teacherName = request.getParameter("name");
+		String teacherCode = request.getParameter("code");
 		
 		// build hibernate session factory
 		try {
@@ -88,39 +73,28 @@ public class AddClassWithTeacher extends HttpServlet {
 
 			// 2. create a session
 			Session session = factory.openSession();
-
+			
 			// 3. create transaction
-			Transaction tx = session.beginTransaction();
-
-			// 4. create class object
-			Class clas = new Class(clas1,sch);
-			
-			Set<Teacher> teacher1= new HashSet<>();
-			Teacher teach1 = new Teacher(t1,c1);
-			Teacher teach2 = new Teacher(t2,c2);
-			
-			teacher1.add(teach1);
-			teacher1.add(teach2);
-		
-			
-			clas.setTeacher1(teacher1);
-			
-			// 5. save product
-			session.save(clas);
-
-			// 6. commit transaction.
-			tx.commit();
+			 Transaction tx = session.beginTransaction();
+			 
+			 //4. create student object
+			 Teacher teacher = new Teacher(teacherId,teacherName,teacherCode);
+			 
+			 //5. update student
+			 session.update(teacher);
+			 
+			 //6. commit transaction.
+			 tx.commit();
 
 			if (session != null) {
-				out.print("<h3 style='color:green'> Class with Teacher Details added sucessfully ! </h3>");
+				out.print("<h3 style='color:green'> Teacher is updated sucessfully ! </h3>");
 			}
 
 			// close session
 			session.close();
 		} catch (Exception e) {
-			out.print("<h3 style='color:red'> Hibernate session is failed ! </h3>"+e);
+			out.print("<h3 style='color:red'> Hibernate session is failed ! </h3>");
 		}
-
 	}
 
 }

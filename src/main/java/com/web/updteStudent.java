@@ -76,10 +76,10 @@ public class updteStudent extends HttpServlet {
 			// 3. create transaction
 			 Transaction tx = session.beginTransaction();
 			 
-			 //4. create product object
+			 //4. create student object
 			 Student student = new Student(studentId,studentName,studentAge,studentRollno);
 			 
-			 //5. update product
+			 //5. update student
 			 session.update(student);
 			 
 			 //6. commit transaction.

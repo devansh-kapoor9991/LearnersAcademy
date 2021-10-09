@@ -60,10 +60,10 @@ public class AddTeacherWithSubject extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		request.getRequestDispatcher("index.html").include(request, response);
-		//product
+		
 		String teacherName = request.getParameter("teachername");
 		String teacherCode = request.getParameter("ecode");
-		//product-details
+	
 		String  name = request.getParameter("name1");
 		String code = request.getParameter("code1");
 		
@@ -79,12 +79,12 @@ public class AddTeacherWithSubject extends HttpServlet {
 			// 3. create transaction
 			 Transaction tx = session.beginTransaction();
 			 
-			 //4. create product object & product details
+			 //4. create teacher object & subject details
 			 Teacher teacher = new Teacher(teacherName,teacherCode);
 			 Subject subject = new Subject(name,code);
 			 teacher.setSubject(subject);
 			 
-			 //5. save product
+			 //5. save teacher
 			 session.save(teacher);
 			 
 			 //6. commit transaction.

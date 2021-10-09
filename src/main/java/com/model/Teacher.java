@@ -50,20 +50,14 @@ public class Teacher {
 			super();
 			     
 		}
+		
 
-
-	
-
-
-	/*	public Teacher(String teachname, String ecode, Subject subject) {
+		public Teacher(int id, String teachname, String ecode) {
 			super();
+			this.id = id;
 			this.teachname = teachname;
 			this.ecode = ecode;
-			this.subject = subject;
-		}*/
-
-
-
+		}
 
 
 		public 	 Teacher(String teachname, String ecode) {

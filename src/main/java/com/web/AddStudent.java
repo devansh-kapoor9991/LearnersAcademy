@@ -75,10 +75,10 @@ public class AddStudent extends HttpServlet {
 			// 3. create transaction
 			 Transaction tx = session.beginTransaction();
 			 
-			 //4. create product object
+			 //4. create student object
 			 Student student = new Student(studentName, studentAge,studentRoll);
 			 
-			 //5. save product
+			 //5. save student
 			 session.save(student);
 			 
 			 //6. commit transaction.

@@ -68,7 +68,7 @@ public class AddClassWithSubject extends HttpServlet {
 		String schoolName =request.getParameter("schname");
 		
 
-		// get product details
+		// get subject details
 		String subjectOneName = request.getParameter("name1");
 		String subjectOneCode =request.getParameter("code1");
 		
@@ -106,10 +106,10 @@ public class AddClassWithSubject extends HttpServlet {
 			subjects.add(subject2);
 			subjects.add(subject3);
 			
-			// add products list to order
+			
 			csub.setSubjects(subjects);
 			
-			// 5. save product
+			
 			session.save(csub);
 
 			// 6. commit transaction.

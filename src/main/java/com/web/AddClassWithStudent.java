@@ -95,7 +95,7 @@ public class AddClassWithStudent extends HttpServlet {
 			// 3. create transaction
 			Transaction tx = session.beginTransaction();
 
-			// 4. create order object
+			// 4. create class object
 			Class school = new Class (classPos,schoolName);
 			
 			Set<Student> students= new HashSet<>();
@@ -107,10 +107,10 @@ public class AddClassWithStudent extends HttpServlet {
 			students.add(student2);
 			students.add(student3);
 			students.add(student4);
-			// add products list to order
+	
 			school.setStudents(students);
 			
-			// 5. save product
+			// 5. save school
 			session.save(school);
 
 			// 6. commit transaction.

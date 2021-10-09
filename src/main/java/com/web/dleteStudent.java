@@ -3,6 +3,7 @@ package com.web;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.persistence.PersistenceException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -91,7 +92,13 @@ public class dleteStudent extends HttpServlet {
 
 			// close session
 			session.close();
-		} catch (Exception e) {
+			
+		}
+		catch(PersistenceException e) {
+			out.println("<h3 style = 'color:red'> Cannot delete the following student,student is in a class already </h3>");
+			e.printStackTrace();
+		}
+		catch (Exception e) {
 			out.print("<h3 style='color:red'> Hibernate session is failed ! </h3>");
 		}
 	}
