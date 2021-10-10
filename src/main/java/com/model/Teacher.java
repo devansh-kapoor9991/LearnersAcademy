@@ -16,9 +16,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name="school_teachers")
 public class Teacher {
-
-	
-	
 		
 		// properties
 		@Id
@@ -28,18 +25,12 @@ public class Teacher {
 
 		@Column(name = "teacher_name")
 		private String teachname;
-
-
 		
 		@Column(name = "empcode")
 		private String ecode;	
-		
-
-		
+				
 		@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 		private Set<Student> students1;
-
-		
 
 		@OneToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)	
 		private Subject subject;

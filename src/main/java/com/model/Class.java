@@ -24,13 +24,9 @@ public class Class {
 
 	@Column(name = "class")
 	private String classPos;
-
-
 	
 	@Column(name = "school")
 	private String schoolName;	
-	
-
 	
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	private Set<Student> students;

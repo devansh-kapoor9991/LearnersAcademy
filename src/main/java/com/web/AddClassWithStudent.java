@@ -33,9 +33,7 @@ public class AddClassWithStudent extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession(false);
-		if(session != null) {
-		
-			
+		if(session != null) {			
 				out.println("<h3 style='color:green'> Welcome to admin access page  </h3>");
 		
 				request.getRequestDispatcher("add-class-with-student.html").include(request, response);
@@ -49,8 +47,6 @@ public class AddClassWithStudent extends HttpServlet {
 		response.setContentType("text/html");
 		
 		request.getRequestDispatcher("index.html").include(request, response);
-	
-
 	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
