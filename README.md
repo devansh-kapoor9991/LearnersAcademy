@@ -1,4 +1,3 @@
-# LearnersAcademy
 Project Name-Learners Academy
 Developed By-Devansh Kapoor
 User Stories:-
@@ -59,10 +58,11 @@ Project git repositories:-
 How to run the project:-
 1- clone project 
 	clone git: git clone https://github.com/devansh-kapoor9991/LearnersAcademy.git
-2-Create database in MySQL workbench with name - school
-  
-3-Right click on the project -> select run on server.
-4-login as admin first before doing any other operation- username- admin,password-admin@123
+2-Create database in MySQL workbench with name – school
+3-Add your SQL username and password in hibernate.cfg.xml file
+ 4-Install tomcat server in your eclipse
+5-Right click on the project -> select run on server.
+6-login as admin first before doing any other operation- username- admin,password-admin@123
 
 
 
@@ -126,3 +126,4 @@ It asks the user to enter subject’s Name and sub code
 
 
  
+
